@@ -1,0 +1,46 @@
+{% extends "core/template.html" %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-md-6">
+      <img src="{% static 'core/img/chanchito(1).png' %}" alt="Chanchito" class="img-fluid mb-3" />
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-dark text-white inicioSesion">
+          Iniciar Sesión
+        </div>
+        <div class="card-body">
+          <form action="../archivosHTML/admin.html">
+            <div class="mb-3">
+              <label for="emailSesion" class="form-label">Correo Electrónico</label>
+              <input
+                type="email"
+                class="form-control"
+                id="emailSesion"
+                placeholder="a@a.cl"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <input
+                type="password"
+                class="form-control"
+                id="contrasenaSesion"
+                placeholder="Chanchi-contraseña"
+                required
+              />
+            </div>
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary btn-lg">Iniciar sesión</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="{% static 'core/js/validaciones-iniciar-sesion.js' %}"></script>
+{% endblock content %}

@@ -1,0 +1,85 @@
+.barra {
+  background-color: #b0a695 !important;
+  color: white !important;
+}
+body {
+  background-color: #776b5d !important;
+}
+.kru-bordes {
+  border-radius: 10px;
+  color: #b0a695;
+  border: 4px solid !important;
+  padding: 2%;
+}
+.palabras {
+  color: black;
+}
+.inicioSesion {
+  background-color: #776b5d !important;
+}
+.registro {
+  background-color: #4f709c !important;
+}
+.card {
+  background-color: #ebe3d5 !important;
+  backdrop-filter: blur(3);
+  filter: drop-shadow(5px 3px 10px black);
+  padding: 0.25rem;
+}
+.contenedor {
+  gap: 1rem;
+  margin-right: 1rem;
+  margin-top: 1rem;
+}
+.btn {
+  background-color: #776b5d !important ;
+  transition : all 0.4s !important;
+  border-color: #b0a695 !important;
+}
+.boton-login:hover {
+  background-color: #0056b3 !important;
+}
+.boton-compra:hover {
+  scale: 0.9 !important;
+}
+img {
+  border-radius: 0.5rem;
+}
+.chanchito2 {
+  width: 200px;
+  height: 200px;
+}
+.texto-chanchito {
+  color: white;
+}
+.contenedor-carrito {
+  border: #ebe3d5;
+  border-color: #776b5d;
+  gap: 1rem;
+  padding: 3rem;
+  flex-direction: row;
+}
+.tabla-carrito {
+  gap: 10px;
+  border-collapse: separate;
+  border-spacing: 1rem;
+}
+.letras-elementos {
+  font-style: oblique;
+  color: #4f709c;
+}
+.card-resumen {
+  background-color: #ebe3d5;
+  border-color: #b0a695;
+  border-spacing: 5rem !important;
+
+}
+
+@media screen and (max-width: 700px) {
+
+  .contenedor-carrito{
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+}

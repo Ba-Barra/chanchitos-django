@@ -1,0 +1,40 @@
+.vertical-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 150px; 
+    background-color: #765827;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .vertical-navbar a {
+    padding: 10px 20px;
+    display: block;
+    color: white;
+    text-decoration: none;
+  }
+  .vertical-navbar a:hover {
+    background-color: #555;
+  }
+  .content {
+    margin-left: 150px; 
+  }
+  .usuarios-lista {
+    display: none; 
+  }
+  
+  .vertical-navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+  }
+  .vertical-navbar > * {
+    margin-bottom: 10px; 
+  }
+  .bottom-nav {
+    margin-top: auto; 
+  }

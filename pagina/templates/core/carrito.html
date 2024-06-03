@@ -1,0 +1,25 @@
+{% extends "core/template.html" %}
+{% load static %}
+{% block content %}
+<div class="container-fluid d-flex contenedor-carrito">
+  <img src="{% static 'core/img/chanchito(1).png' %}" width="20%" />
+  <div class="card" style="width: fit-content">
+    <div class="card-body">
+      <h4>Carrito de compras</h4>
+      <table class="tabla-carrito">
+        <tr>
+          <th>Productos</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+        </tr>
+        <tr>
+          <td>Chanchito-Antidepresion</td>
+          <td>2</td>
+          <td>$50.000</td>
+        </tr>
+      </table>
+      <a href="./checkOut.html" class="btn btn-primary">Comprar</a>
+    </div>
+  </div>
+</div>
+{% endblock content %}

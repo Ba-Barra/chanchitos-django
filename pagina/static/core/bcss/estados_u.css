@@ -1,0 +1,37 @@
+.tabla-pedidos {
+    margin-top: 2rem;
+}
+
+.tabla-pedidos th, .tabla-pedidos td {
+    padding: 10px;
+    color: white;
+}
+
+.tabla-pedidos th {
+    background-color: #ebe3d5;
+    color: #ffffff;
+    font-style: oblique;
+    border-color: #b0a695;
+}
+
+.tabla-pedidos td {
+    background-color: #b0a695;
+    color: #ffffff;
+    border-color: #b0a695;
+}
+
+.tabla-pedidos tbody tr:nth-child(even) {
+    background-color: #d3c9b5;
+}
+
+.tabla-pedidos tbody tr:hover {
+    background-color: #92816f;
+}
+
+.titulo-blanco {
+    color: white;
+}
+
+.subtitulo-blanco {
+    color: white;
+}

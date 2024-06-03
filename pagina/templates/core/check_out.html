@@ -1,0 +1,78 @@
+{% extends "core/template.html" %}
+{% load static %}
+{% block content %}
+<div class="container">
+  <form action="./pedidos_usuario.html">
+    <div class="card cart">
+      <label class="title">Chanchito-Compra</label>
+      <div class="steps">
+        <div class="step">
+          <div>
+            <span>Chanchito-envio</span>
+            <p>Ingrese su chanchi-direccion</p>
+            <input type="text" id="chanchito-direccion" required />
+            <select name="Country" id="Country" class="selec">
+              <option>Selecciona tu Chanchi-Region</option>
+              <option value="1" id="AP">Arica y Parinacota</option>
+              <option value="2" id="TA">Tarapaca</option>
+              <option value="3" id="AN">Antofagasta</option>
+              <option value="4" id="AT">Atacama</option>
+              <option value="5" id="CO">Coquimbo</option>
+              <option value="6" id="VA">Valparaiso</option>
+              <option value="7" id="ME">Metropolitana</option>
+              <option value="8" id="OH">O'Higgins</option>
+              <option value="9" id="MA">Maule</option>
+              <option value="10" id="NU">Ñuble</option>
+              <option value="11" id="BI">Bio-Bio</option>
+              <option value="12" id="AR">La Araucania</option>
+              <option value="13" id="LR">De los Rios</option>
+              <option value="14" id="LA">De los lagos</option>
+              <option value="15" id="AY">Aysen</option>
+              <option value="16" id="MAG">Magallanes</option>
+            </select>
+          </div>
+          <hr />
+          <div>
+            <span>Ingrese su chanchi-correo</span>
+            <input
+              required
+              type="email"
+              id="chanchito-correo"
+              name="chanchi-correo"
+            />
+          </div>
+          <div>
+            <span>Chanchi-tarjeta</span>
+            <input required type="text" pattern="{13,16}" />
+          </div>
+          <hr />
+          <div class="promo">
+            <span>¿Tienes una chanchito-promoción?</span>
+            <input type="text" />
+          </div>
+          <hr />
+          <div class="payments">
+            <span>Chanchito-pago</span>
+            <div class="details">
+              <span>Chanchito-total:</span>
+              <span>$0</span>
+              <span>Chanchito-envio:</span>
+              <span>$0</span>
+              <span>Chanchito-IVA:</span>
+              <span>$0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card checkout">
+      <div class="footer">
+        <label class="price">$0</label>
+        <button class="checkout-btn">Checkout</button>
+      </div>
+    </div>
+  </form>
+</div>
+<script src="{% static 'core/js/test.js' %}"></script>
+<script src="{% static 'core/js/api.js' %}"></script>
+{% endblock content %}

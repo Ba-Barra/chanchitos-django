@@ -1,0 +1,26 @@
+{% extends "core/template.html" %}
+{% load static %}
+{% block content %}
+<h2 class="mt-5 titulo-blanco">Lista de Pedidos</h2>
+<table class="table tabla-pedidos">
+    <thead>
+        <tr>
+            <th class="subtitulo-blanco">Número de Pedido</th>
+            <th class="subtitulo-blanco">Producto</th>
+            <th class="subtitulo-blanco">Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1</td>
+            <td>Producto 1</td>
+            <td>En proceso</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Producto 2</td>
+            <td>Entregado</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock content %}
