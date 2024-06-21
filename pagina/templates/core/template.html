@@ -18,7 +18,7 @@
   <body class="">
     <nav class="navbar navbar-expand-sm navbar-dark barra">
       <div class="container-fluid">
-        <a class="navbar-brand" href="index.html">Pomaire INC</a>
+        <a class="navbar-brand" href="{%url 'base'%}">Pomaire INC</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -30,10 +30,10 @@
         <div class="collapse navbar-collapse" id="mynavbar">
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
-              <a class="nav-link" href="#">Nuestros Productos</a>
+              <a class="nav-link" href="{% url 'productos'%}">Nuestros Productos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#"
+              <a class="nav-link" href="{%url 'carrito'%}"
                 ><i class="fa-solid fa-cart-shopping"></i
               ></a>
             </li>
@@ -44,10 +44,10 @@
           </form>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" href="#">Iniciar Sesión</a>
+              <a class="nav-link" href="{%url 'login'%}">Iniciar Sesión</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Registrarse</a>
+              <a class="nav-link" href="{%url 'registrar'%}">Registrarse</a>
             </li>
           </ul>
         </div>
