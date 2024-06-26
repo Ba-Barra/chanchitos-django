@@ -56,11 +56,18 @@ class Producto (models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, unique=True, editable=False)
     nombre = models.CharField(max_length=50,unique=True)
     descripcion = models.CharField(max_length=300)
-    valor = models.FloatField() 
+    valor = models.IntegerField() 
     stock = models.IntegerField()
+    image = models.ImageField(upload_to="productos/")
     
     def __str__(self):
         return str(self.id)
+    @property
+    def get_image_url(self):
+        try: 
+            return self.image.url
+        except: 
+            return ""
     
 
 class Boleta (models.Model):
@@ -76,11 +83,16 @@ class Boleta (models.Model):
         detalle = self.detalle_boleta_set.all()
         total = sum([item.producto.valor * item.cantidad_productos for item in detalle])
         return total
+    @property
+    def get_item(self):
+        detalle = self.detalle_boleta_set.all()
+        total = sum([item.cantidad_productos for item in detalle])
+        return total
     
 class Detalle_boleta (models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     boleta = models.ForeignKey(Boleta, on_delete=models.CASCADE)
-    cantidad_productos = models.IntegerField()
+    cantidad_productos = models.IntegerField(default=0) 
     def __str__(self):
         return str(self.boleta.id) + '-' + self.producto.nombre
     @property
