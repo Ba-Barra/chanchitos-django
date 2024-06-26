@@ -68,7 +68,7 @@
           <td>{{product.stock}}</td>
           <td>
             <button type="button" class="btn btn-danger btn-sm delete-btn" onclick="eliminarProducto(this)">Eliminar</button>
-            <a type="button" class="btn btn-info btn-sm edit-btn text-white" href="{% url 'detalle' product.id%}">Editar</a>
+            <button type="button" class="btn btn-info btn-sm edit-btn text-white" onclick="editarProducto('${product.name}', '${product.price}', '${product.stock}')">Editar</button>
           </td>
           {% endfor %}
         </tbody>
@@ -154,107 +154,10 @@
       </table>
     </div>
 
-    <div
-      class="container mt-5 content pedidos-lista"
-      id="pedidos-lista"
-      style="display: none"
-    >
-      <h2 class="text-white">Lista de Pedidos Vendidos</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Pedido ID</th>
-            <th>Cliente</th>
-            <th>Producto</th>
-            <th>Cantidad</th>
-            <th>Total</th>
-            <th>Estado</th>
-            <th>Fecha</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>12345</td>
-            <td>Juan Perez</td>
-            <td>Chanchito-Antidepresion informatico</td>
-            <td>1</td>
-            <td>$50.000</td>
-            <td>
-              <div class="dropdown">
-                <button
-                  class="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Pendiente
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <li><a class="dropdown-item" href="#">Pendiente</a></li>
-                  <li><a class="dropdown-item" href="#">En Proceso</a></li>
-                  <li><a class="dropdown-item" href="#">Enviado</a></li>
-                  <li><a class="dropdown-item" href="#">Entregado</a></li>
-                </ul>
-              </div>
-            </td>
-            <td>2024-04-10</td>
-          </tr>
-          <tr>
-            <td>54321</td>
-            <td>Maria Garcia</td>
-            <td>Paila de greda pal huevito</td>
-            <td>2</td>
-            <td>$80.000</td>
-            <td>
-              <div class="dropdown">
-                <button
-                  class="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Pendiente
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <li><a class="dropdown-item" href="#">Pendiente</a></li>
-                  <li><a class="dropdown-item" href="#">En Proceso</a></li>
-                  <li><a class="dropdown-item" href="#">Enviado</a></li>
-                  <li><a class="dropdown-item" href="#">Entregado</a></li>
-                </ul>
-              </div>
-            </td>
-            <td>2024-04-09</td>
-          </tr>
-          <tr>
-            <td>67890</td>
-            <td>Luis Rodriguez</td>
-            <td>Chanchito Autista</td>
-            <td>1</td>
-            <td>$100.000</td>
-            <td>
-              <div class="dropdown">
-                <button
-                  class="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Pendiente
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <li><a class="dropdown-item" href="#">Pendiente</a></li>
-                  <li><a class="dropdown-item" href="#">En Proceso</a></li>
-                  <li><a class="dropdown-item" href="#">Enviado</a></li>
-                  <li><a class="dropdown-item" href="#">Entregado</a></li>
-                </ul>
-              </div>
-            </td>
-            <td>2024-04-08</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="card">
+        <h1 class="card-title">{{producto.nombre}}</h1>
+        <div class="card-body">
+            <p>${{producto.valor | intcomma}}</p>
+        </div>
     </div>
 {% endblock content %}
