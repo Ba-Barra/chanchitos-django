@@ -4,7 +4,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('',index,name='index'),
+    path('',index,name='base'),
     path('productos/',productos, name='productos'),
     path('registrar/',registrar,name='registrar'),
     path('login',login,name='login'),
