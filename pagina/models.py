@@ -88,6 +88,11 @@ class Boleta (models.Model):
         detalle = self.detalle_boleta_set.all()
         total = sum([item.cantidad_productos for item in detalle])
         return total
+    @property
+    def get_envio(self):
+        envio = 5000
+        total = self.get_total + envio
+        return total
     
 class Detalle_boleta (models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
@@ -101,6 +106,26 @@ class Detalle_boleta (models.Model):
         return total
     
    
+class Region (models.Model):
+    nombre = models.CharField(max_length=100)
+
+class Envio (models.Model):
+    envio = {
+        'E' : 'Enviado',
+        'C' : 'Camino',
+        'R' : 'Recibido',
+        'N' : 'No Recibido',
+        'P' : 'Preparacion'
+    }
+    boleta = models.OneToOneField(Boleta,on_delete=models.CASCADE)
+    region = models.ForeignKey(Region,on_delete=models.SET_NULL,blank=True, null=True)
+    direccion = models.CharField(max_length=250)
+    estado = models.CharField(max_length=1,choices=envio,default= 'P')
+    @property
+    def get_estado (self):
+        return self.get_estado_display()
+
+
 
     
 

@@ -9,13 +9,6 @@ emailSesion.addEventListener("input", function () {
     emailSesion.setCustomValidity("");
   }
 });
-contrasenaSesion.addEventListener("input", function () {
-  if (contrasenaSesion.value.length < 8) {
-    contrasenaSesion.setCustomValidity("No es la chanchi-contraseña!");
-  } else {
-    contrasenaSesion.setCustomValidity("");
-  }
-});
 
 
 

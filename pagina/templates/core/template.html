@@ -14,6 +14,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
+    {% block sources %} {% endblock sources %}
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script>
       const user = "{{request.user}}";
@@ -40,6 +41,30 @@
     <script src="{%static 'core/js/carrito.js'%}"></script>
   </head>
   <body class="">
+    {% if messages %}
+    <div class="toast-container position-static">
+      {% for message in messages %}
+      <div class="toast-container position-fixed top-0 start-0 p-3">
+        <div
+          class="toast show align-items-center text-bg-primary border-0"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div class="d-flex">
+            <div class="toast-body">{{message}}</div>
+            <button
+              type="button"
+              class="btn-close btn-close-white me-2 m-auto"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
     <nav class="navbar navbar-expand-sm navbar-dark barra">
       <div class="container-fluid">
         <a class="navbar-brand" href="{%url 'index'%}">Pomaire INC</a>
@@ -54,7 +79,9 @@
         <div class="collapse navbar-collapse" id="mynavbar">
           <ul class="navbar-nav me-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{%url 'productos'%}">Nuestros Productos</a>
+              <a class="nav-link" href="{%url 'productos'%}"
+                >Nuestros Productos</a
+              >
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{%url 'carrito' %}"
@@ -67,12 +94,18 @@
             <a class="btn btn-primary" href="#">Buscar</a>
           </form>
           <ul class="navbar-nav">
+            {% if not user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link" href="#">Iniciar Sesión</a>
+              <a class="nav-link" href="{%url 'login' %}">Iniciar Sesión</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Registrarse</a>
+              <a class="nav-link" href="{%url 'registrar' %}">Registrarse</a>
             </li>
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="#">{{user.nombre}}</a>
+            </li>
+            {% endif %}
           </ul>
         </div>
       </div>

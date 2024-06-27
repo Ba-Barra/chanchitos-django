@@ -1,8 +1,14 @@
 {% extends "core/template.html" %}
+{% load humanize %}
 {% load static %}
+{% block sources %}
+<link rel="stylesheet" href="{%static 'core/bcss/checkOut.css'%}">
+{% endblock sources %}
+
 {% block content %}
 <div class="container">
-  <form action="./pedidos_usuario.html">
+  <form method="POST">
+    {% csrf_token %}
     <div class="card cart">
       <label class="title">Chanchito-Compra</label>
       <div class="steps">
@@ -10,7 +16,7 @@
           <div>
             <span>Chanchito-envio</span>
             <p>Ingrese su chanchi-direccion</p>
-            <input type="text" id="chanchito-direccion" required />
+            <input type="text" id="chanchito-direccion" name="direccion" required />
             <select name="Country" id="Country" class="selec">
               <option>Selecciona tu Chanchi-Region</option>
               <option value="1" id="AP">Arica y Parinacota</option>
@@ -33,15 +39,6 @@
           </div>
           <hr />
           <div>
-            <span>Ingrese su chanchi-correo</span>
-            <input
-              required
-              type="email"
-              id="chanchito-correo"
-              name="chanchi-correo"
-            />
-          </div>
-          <div>
             <span>Chanchi-tarjeta</span>
             <input required type="text" pattern="{13,16}" />
           </div>
@@ -55,11 +52,9 @@
             <span>Chanchito-pago</span>
             <div class="details">
               <span>Chanchito-total:</span>
-              <span>$0</span>
+              <span>${{order.get_total|intcomma}}</span>
               <span>Chanchito-envio:</span>
-              <span>$0</span>
-              <span>Chanchito-IVA:</span>
-              <span>$0</span>
+              <span>$5000</span>
             </div>
           </div>
         </div>
@@ -67,8 +62,8 @@
     </div>
     <div class="card checkout">
       <div class="footer">
-        <label class="price">$0</label>
-        <button class="checkout-btn">Checkout</button>
+        <label class="price">${{order.get_envio|intcomma}}</label>
+        <button class="checkout-btn" type="submit">Checkout</button>
       </div>
     </div>
   </form>

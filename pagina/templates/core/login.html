@@ -12,13 +12,15 @@
           Iniciar Sesión
         </div>
         <div class="card-body">
-          <form action="../archivosHTML/admin.html">
+          <form method='POST'>
+            {% csrf_token %}
             <div class="mb-3">
               <label for="emailSesion" class="form-label">Correo Electrónico</label>
               <input
                 type="email"
                 class="form-control"
                 id="emailSesion"
+                name="email"
                 placeholder="a@a.cl"
                 required
               />
@@ -29,12 +31,13 @@
                 type="password"
                 class="form-control"
                 id="contrasenaSesion"
+                name="password"
                 placeholder="Chanchi-contraseña"
                 required
               />
             </div>
             <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-primary btn-lg">Iniciar sesión</button>
+              <button type="submit" class="btn btn-primary btn-lg">Chanchi-Iniciar sesión</button>
             </div>
           </form>
         </div>
