@@ -38,9 +38,15 @@
             <td>${{item.get_total|intcomma}}</td>
           </tr>
           {% endfor %}
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>${{order.get_total|intcomma}}</td>
+          </tr> 
         </tbody>
       </table>
-      <a href="./checkOut.html" class="btn btn-primary">Comprar</a>
+      <a href="{%url 'check_out'%}" class="btn btn-primary">Comprar</a>
     </div>
   </div>
 </div>

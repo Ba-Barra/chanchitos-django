@@ -1,10 +1,12 @@
-{% extends "core/template.html" %}
-{% load static %}
-{% block content %}
+{% extends "core/template.html" %} {% load static %} {% block content %}
 <div class="container mt-5">
   <div class="row justify-content-center align-items-center">
     <div class="col-md-6">
-      <img src="{% static 'core/img/chanchito(1).png' %}" alt="Chanchito" class="img-fluid mb-3" />
+      <img
+        src="{% static 'core/img/chanchito(1).png' %}"
+        alt="Chanchito"
+        class="img-fluid mb-3"
+      />
     </div>
     <div class="col-md-6">
       <div class="card">
@@ -12,49 +14,69 @@
           Registrarse
         </div>
         <div class="card-body">
-          <form action="../index.html">
+          <form method="POST">
+            {% csrf_token %}
             <div class="mb-3">
-              <label for="name" class="form-label">Nombre</label>
+              <label for="name" class="form-label">Chanchi-Nombre</label>
               <input
                 type="text"
                 class="form-control"
                 id="nombreRegistro"
+                name="first_name"
                 placeholder="Juan Pérez"
                 required
               />
             </div>
             <div class="mb-3">
-              <label for="email" class="form-label">Correo Electrónico</label>
+              <label for="name" class="form-label">Chanchi-rut</label>
+              <input
+                type="text"
+                class="form-control"
+                id="rut"
+                name="rut"
+                placeholder="11111111-1"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Chanchi-Correo Electrónico</label>
               <input
                 type="email"
                 class="form-control"
                 id="emailRegistro"
+                name="email"
                 placeholder="direccion@correo.com"
                 required
               />
             </div>
             <div class="mb-3">
-              <label for="password" class="form-label">Contraseña</label>
+              <label for="password" class="form-label">Chanchi-Contraseña</label>
               <input
                 type="password"
                 class="form-control"
                 id="contrasenaRegistro"
+                name="password1"
                 placeholder="contraseña"
                 required
               />
             </div>
             <div class="mb-3">
-              <label for="confirmPassword" class="form-label">Confirmar contraseña</label>
+              <label for="confirmPassword" class="form-label"
+                >Chanchi-Confirmar contraseña</label
+              >
               <input
                 type="password"
                 class="form-control"
                 id="contrasenaConfirmar"
+                name="password2"
                 placeholder="Repita la contraseña"
                 required
               />
             </div>
             <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-primary btn-lg">Registrarse</button>
+              <button type="submit" class="btn btn-primary btn-lg">
+                Chanchi-Registrarse
+              </button>
             </div>
           </form>
         </div>
