@@ -3,10 +3,11 @@ from .models import Producto, Boleta, Detalle_boleta, Region, Envio
 from django.views.decorators.http import require_POST
 import json
 from django.http import JsonResponse
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout
 from .forms import LoginForm, RegisterForm
+
 
 # Create your views here.
 def index(request):
@@ -108,7 +109,10 @@ def check_out(request):
     return render(request,"core/check_out.html", context)
 
 def pedidos_usuario(request):
-    return render(request,"core/pedidos_usuario.html")
+    boletas = Boleta.objects.filter(completada=True,cliente=request.user)
+    context = {'boletas': boletas}
+
+    return render(request,"core/pedidos_usuario.html",context)
 
 
 def carrito(request):
@@ -126,11 +130,44 @@ def carrito(request):
 
     return render(request, "core/carrito.html",context)
 
+@login_required
+@permission_required("pagina.view_user",raise_exception=True) ##Tira un error en caso q no exista permiso para acceder 
 def dashboard(request):
+    tipos = Producto.TIPO
     productos = Producto.objects.all()
+    if request.method == 'POST':
+        tipo = request.POST.get("Tipo")
+        nombre = request.POST.get("productonombre")
+        precio = request.POST.get("precioProducto")
+        descripcion = request.POST.get("descripcionProducto")
+        stock = request.POST.get("StockProducto")
+        imagen = request.FILES.get("imagenProducto")
+        if int(precio) < 0 : 
+            messages.error(request,"Precio Chanchi-invalido")
+            return redirect('dashboard')
+        if int(stock) < 0:
+            messages.error(request,"Chanchi-stock invalido")  
+            return redirect('dashboard')  
+        if Producto.objects.filter(nombre = nombre).exists():
+            messages.error(request,"No pueden existir dos chanchitos iguales en el universo")
+            return redirect ('dashboard')
+        if imagen.name.split('.')[-1] not in ['jpg', 'jpeg', 'png', 'webp', 'svg']:
+            messages.error(request, "Chanchi-foto no valida")
+            return redirect('dashboard')
+        if imagen is None :
+            messages.error(request,"No hay chanchi imagen! :(")
+            return redirect ('dashboard')
+        
+        nuevo_producto = Producto.objects.create(tipo = tipo,nombre=nombre,descripcion = descripcion,valor = precio, stock = stock, imagen= imagen)
+        nuevo_producto.save()
+        messages.success(request,"Chanchi-agregado con éxito!")
+        return redirect('dashboard')
 
-    context = {'productos': productos}
+
+
+    context = {'productos': productos, 'tipos': tipos}
     return render(request,"core/dashboard.html", context)
+
 
 def chanchito(request, id):
     producto = Producto.objects.get(id=id)
@@ -157,6 +194,20 @@ def actualizarCarrito(request):
     detalle_orden.save()          
     if detalle_orden.cantidad_productos <= 0: 
         detalle_orden.delete()
-    return JsonResponse("Chanchito actualizado",safe=False)          
+    return JsonResponse("Chanchito actualizado",safe=False)   
+   
+@login_required
+@permission_required("pagina.view_user",raise_exception=True)
+def pedidos_admin (request):
+    boletas = Boleta.objects.filter(completada=True)
+    context = {'boletas': boletas}
+    return render(request,"core/pedidos_admin.html",context) 
+ 
+@login_required
+@permission_required("pagina.view_user",raise_exception=True)
+def detalle_boleta(request,id):
+    boleta = Boleta.objects.get(id=id)
+    context = {'boleta':boleta}
+    return render(request,"core/detalle_boleta.html", context)
 
 

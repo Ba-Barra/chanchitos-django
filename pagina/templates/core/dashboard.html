@@ -6,39 +6,72 @@
       <h2 class="text-white" class="mb-4">Administración de Productos</h2>
 
       <h4 class="text-white">Agregar Nuevo Producto</h4>
-      <form id="addProductForm" method="post">
+      <form id="addProductForm" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group">
           <label for="productName" class="text-white"
-            >Nombre del Producto:</label
+            >Tipo: </label
           >
-          <input
-            name="productName"
-            type="text"
-            class="form-control"
-            id="productName"
-            required
-          />
+          <select name="Tipo" id="Tipo">
+            {% for value,label in tipos  %} <option value='{{value}}'>{{label}}</option>
+            {% endfor %}</select>
         </div>
         <div class="form-group">
           <label for="productPrice" class="text-white"
-            >Precio del Producto:</label
+            >Chanchi-Nombre: </label
           >
           <input
-            name="productPrice"
-            type="number"
+            name="productonombre"
+            type="text"
             class="form-control"
-            id="productPrice"
+            id="nombreproducto"
             required
           />
         </div>
         <div class="form-group">
-          <label for="productStock" class="text-white">Stock producto:</label>
+          <label for="productStock" class="text-white">Chanchi-precio:</label>
           <input
-            name="productStock"
+            name="precioProducto"
             type="number"
             class="form-control"
-            id="productStock"
+            id="precioProducto"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="productName" class="text-white"
+            >Chanchi-Descripcion :</label
+          >
+          <input
+            name="descripcionProducto"
+            type="text"
+            class="form-control"
+            id="descripcionProducto"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="productName" class="text-white"
+            >Chanchi-Stock: </label
+          >
+          <input
+            name="StockProducto"
+            type="text"
+            class="form-control"
+            id="StockProducto"
+            required
+          />
+        </div>
+                <div class="form-group">
+          <label for="productName" class="text-white"
+            >Chanchi-Imagen:</label
+          >
+          <input
+            name="imagenProducto"
+            type="file"
+            accept="image/*"
+            class="form-control"
+            id="imagenProducto"
             required
           />
         </div>
@@ -63,6 +96,7 @@
         </thead>
         <tbody id="productList">
           {% for product in productos %}
+          <tr>
           <td>{{product.nombre}}</td>
           <td>${{product.valor | intcomma}}</td>
           <td>{{product.stock}}</td>
@@ -70,6 +104,7 @@
             <button type="button" class="btn btn-danger btn-sm delete-btn" onclick="eliminarProducto(this)">Eliminar</button>
             <a type="button" class="btn btn-info btn-sm edit-btn text-white" href="{% url 'detalle' product.id%}">Editar</a>
           </td>
+        </tr>
           {% endfor %}
         </tbody>
       </table>
