@@ -48,24 +48,24 @@ class Usuario (AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = 'Users'
 
 class Producto (models.Model):
-    TIPO = {
-        'C' : 'Chanchito',
-        'P' : 'Paila'
-    }
+    TIPO = [
+        ('C', 'Chanchito'),
+        ('P', 'Paila')
+    ]
     tipo = models.CharField(max_length=1,choices=TIPO, default= 'C')
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, unique=True, editable=False)
     nombre = models.CharField(max_length=50,unique=True)
     descripcion = models.CharField(max_length=300)
     valor = models.IntegerField() 
     stock = models.IntegerField()
-    image = models.ImageField(upload_to="productos/")
+    imagen = models.ImageField(upload_to="productos/")
     
     def __str__(self):
         return str(self.id)
     @property
     def get_image_url(self):
         try: 
-            return self.image.url
+            return self.imagen.url
         except: 
             return ""
     

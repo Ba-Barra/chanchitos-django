@@ -1,6 +1,7 @@
-{% extends "core/template.html" %}
+{% extends "core/template_admin.html" %}
 {% load static %}
 {% block content %}
+<div class="container mt-5 content" id="admin-contenido">
 <h2 class="mt-5 titulo-blanco">Lista de Pedidos</h2>
 <table class="table tabla-pedidos">
     <thead>
@@ -8,6 +9,7 @@
             <th class="subtitulo-blanco">Chanchi-Número de Chanchi-Pedido</th>
             <th class="subtitulo-blanco">Chanchi-Total</th>
             <th class="subtitulo-blanco">Chanchi-Estado</th>
+            <th class="subtitulo-blanco">Chanchi-ver</th>
         </tr>
     </thead>
     <tbody>
@@ -16,8 +18,10 @@
             <td>{{boleta.id}}</td>
             <td>{{boleta.get_total}}</td>
             <td>{{boleta.envio.get_estado_display}}</td>
+            <td><a href="{%url 'detalle_boleta' boleta.id%}">Chanchi</a></td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+</div>
 {% endblock content %}

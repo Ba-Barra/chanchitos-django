@@ -5,7 +5,7 @@
 <div class="d-flex flex-row justify-content-center flex-wrap contenedor">
   {% for producto in productos %}
   <div class="card" style="width: 300px; height: 600px">
-      <img src="{{producto.image.url}}" alt="{{producto.nombre}}" class="card-img-top">
+      <img src="{{producto.get_image_url}}" alt="{{producto.nombre}}" class="card-img-top">
     <div class="card-body">
       <h4 class="card-title">{{producto.nombre}}</h4>
       <p class="card-text">
