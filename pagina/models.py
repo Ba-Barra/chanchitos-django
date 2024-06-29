@@ -74,7 +74,6 @@ class Boleta (models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, unique=True, editable=False)
     fechaVenta = models.DateTimeField(auto_now_add=True)
     cliente = models.ForeignKey(Usuario,on_delete=models.CASCADE)
-    descripcion = models.CharField(max_length=300)
     completada = models.BooleanField(default=False)
     def __str__(self):
         return str(self.id)
@@ -124,6 +123,9 @@ class Envio (models.Model):
     @property
     def get_estado (self):
         return self.get_estado_display()
+    @property
+    def get_direccion(self):
+        return self.direccion + " " + self.region.nombre
 
 
 

@@ -1,4 +1,31 @@
-{% extends "core/template_admin.html" %}
-{% load static %}
-{% block content %}{{boleta}}
+
+{% extends "core/template_admin.html" %} {% load static %} 
+{% load humanize %}
+{% block content %}
+<div class="container mt-5 content row" id="admin-contenido">
+  <div class="col-md-7 col-sm-12 d-flex flex-column">
+    {% for item in productos %}
+    <div class="card border-0 mb-3 row">
+        <img class="col-md-4 img-fluid rounded-start" src="{{item.producto.get_image_url}}" alt="{{item.producto.nombre}}">
+      <div class="card-body col-md-8">
+        <h5 class="card-title">{{item.producto.nombre}}</h5>
+        <p class="card-text">Chanchi-productos : {{item.cantidad_productos}}</p>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Chanchi-Total : ${{item.get_total|intcomma}}</li>
+        </ul>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="col-md-5">
+    <div class="card border-0">
+        <p>Chanchi-id: <small>{{boleta.id}}</small></p>
+        <p>Chanchi-fecha: {{boleta.fechaVenta}}</p>
+        <p>Chanchi-Cliente: {{boleta.cliente.nombre}}</p>
+        <p>Chanchi-total: ${{boleta.get_envio|intcomma}}</p>
+        <p>Chanchi-estado: {{boleta.envio.get_estado_display}}</p>
+        <p>Chanchi-direccion : {{boleta.envio.get_direccion}}</p>
+    </div>
+  </div>
+</div>
 {% endblock content %}

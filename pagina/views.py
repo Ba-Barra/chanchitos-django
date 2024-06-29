@@ -207,7 +207,63 @@ def pedidos_admin (request):
 @permission_required("pagina.view_user",raise_exception=True)
 def detalle_boleta(request,id):
     boleta = Boleta.objects.get(id=id)
-    context = {'boleta':boleta}
+    productos = Detalle_boleta.objects.filter(boleta=boleta)
+    context = {'boleta':boleta,'productos':productos}
     return render(request,"core/detalle_boleta.html", context)
+
+@login_required
+@permission_required("pagina.view_user",raise_exception=True)
+def editarProducto(request,id):
+    tipos = Producto.TIPO
+    producto = Producto.objects.get(id=id)
+    if request.method == 'POST':
+        tipo = request.POST.get("Tipo")
+        nombre = request.POST.get("productonombre")
+        precio = request.POST.get("precioProducto")
+        descripcion = request.POST.get("descripcionProducto")
+        stock = request.POST.get("StockProducto")
+        imagen = request.FILES.get("imagenProducto")
+        if int(precio) < 0 : 
+            messages.error(request,"Precio Chanchi-invalido")
+            return redirect('dashboard')
+        if int(stock) < 0:
+            messages.error(request,"Chanchi-stock invalido")  
+            return redirect('dashboard')  
+        if Producto.objects.filter(nombre = nombre).exclude(id=id).exists():
+            messages.error(request,"No pueden existir dos chanchitos iguales en el universo")
+            return redirect ('dashboard')
+        if imagen is not None:
+            if imagen.name.split('.')[-1] not in ['jpg', 'jpeg', 'png', 'webp', 'svg']:
+                messages.error(request, "Chanchi-foto no valida")
+                return redirect('dashboard')
+            
+
+        producto.tipo = tipo
+        producto.nombre = nombre
+        producto.precio = precio
+        producto.descripcion = descripcion
+        producto.stock = stock
+        if imagen is not None:
+            producto.imagen = imagen
+        producto.save()    
+
+        messages.success(request,"Chanchi-editado con éxito!")
+        return redirect('dashboard')
+    context = {'producto': producto,'tipos': tipos}
+    return render(request,"core/editarProducto.html", context)
+
+@login_required
+@permission_required("pagina.view_user",raise_exception=True)
+def eliminarProducto(request,id):
+    producto = Producto.objects.get(id=id)
+    if not Producto.objects.filter(id=id).exists():
+        messages.error(request,"Chanchi-no existe")
+        return redirect('dashboard')
+    producto.delete()
+    messages.success(request,"Chanchi-elimidado con éxito :(")
+    return redirect('dashboard')
+
+
+
 
 
