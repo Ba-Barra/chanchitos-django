@@ -1,0 +1,75 @@
+{% extends "core/template_admin.html" %} {% load static %} {% load humanize %}
+{% block content %}
+<div class="container mt-5 content" id="admin-contenido">
+  <h2 class="text-white" class="mb-4">Administración de Productos</h2>
+
+  <h4 class="text-white">Editar Producto</h4>
+  <form id="addProductForm" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="productName" class="text-white">Tipo: </label>
+      <select name="Tipo" id="Tipo">
+        {% for value,label in tipos %}
+        <option {% if value == producto.tipo  %}selected{% endif %} 
+        value="{{value}}">{{label}}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="productPrice" class="text-white">Chanchi-Nombre: </label>
+      <input
+        name="productonombre"
+        type="text"
+        class="form-control"
+        id="nombreproducto"
+        value="{{producto.nombre}}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="productStock" class="text-white">Chanchi-precio:</label>
+      <input
+        name="precioProducto"
+        type="number"
+        class="form-control"
+        id="precioProducto"
+        value="{{producto.valor}}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="productName" class="text-white">Chanchi-Descripcion :</label>
+      <input
+        name="descripcionProducto"
+        type="text"
+        class="form-control"
+        id="descripcionProducto"
+        value="{{producto.descripcion}}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="productName" class="text-white">Chanchi-Stock: </label>
+      <input
+        name="StockProducto"
+        type="text"
+        class="form-control"
+        id="StockProducto"
+        value="{{producto.stock}}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="productName" class="text-white">Chanchi-Imagen:</label>
+      <input
+        name="imagenProducto"
+        type="file"
+        accept="image/*"
+        class="form-control"
+        id="imagenProducto"   
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Editar Producto</button>
+  </form>
+</div>
+{% endblock content %}

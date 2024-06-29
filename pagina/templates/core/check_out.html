@@ -6,7 +6,7 @@
 {% endblock sources %}
 
 {% block content %}
-<div class="container">
+<div class="container ">
   <form method="POST">
     {% csrf_token %}
     <div class="card cart">
@@ -43,10 +43,6 @@
             <input required type="text" pattern="{13,16}" />
           </div>
           <hr />
-          <div class="promo">
-            <span>¿Tienes una chanchito-promoción?</span>
-            <input type="text" />
-          </div>
           <hr />
           <div class="payments">
             <span>Chanchito-pago</span>

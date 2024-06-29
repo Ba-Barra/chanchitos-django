@@ -101,8 +101,8 @@
           <td>${{product.valor | intcomma}}</td>
           <td>{{product.stock}}</td>
           <td>
-            <button type="button" class="btn btn-danger btn-sm delete-btn" onclick="eliminarProducto(this)">Eliminar</button>
-            <a type="button" class="btn btn-info btn-sm edit-btn text-white" href="{% url 'detalle' product.id%}">Editar</a>
+            <a class="btn btn-danger btn-sm delete-btn" href="{% url 'eliminar' product.id%}">Eliminar</a>
+            <a class="btn btn-info btn-sm edit-btn text-white" href="{% url 'editar' product.id%}">Editar</a>
           </td>
         </tr>
           {% endfor %}

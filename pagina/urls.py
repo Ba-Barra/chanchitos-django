@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import index,productos,registrar,login,check_out,pedidos_usuario,carrito,dashboard, chanchito , actualizarCarrito, cerrar_la_wea, pedidos_admin, detalle_boleta
+from .views import index,productos,registrar,login,check_out,pedidos_usuario,carrito,dashboard, chanchito , actualizarCarrito, cerrar_la_wea, pedidos_admin, detalle_boleta, editarProducto,eliminarProducto
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -12,11 +12,12 @@ urlpatterns = [
     path('pedidos_usuario',pedidos_usuario,name='pedidos_usuario'),
     path('carrito/',carrito, name='carrito'),
     path('dashboard/',dashboard,name='dashboard'),
-    path('dashboard/<uuid:id>', chanchito, name="detalle"),
     path('actualizar_chanchi_carrito/', actualizarCarrito),
     path('accounts/logout',cerrar_la_wea,name="logout"),
     path('dashboard/pedidos_admin', pedidos_admin, name="pedidos_admin"),
-    path('dashboard/pedidos/<uuid:id>',detalle_boleta, name="detalle_boleta")
+    path('dashboard/pedidos/<uuid:id>',detalle_boleta, name="detalle_boleta"),
+    path('dashboard/producto/<uuid:id>',editarProducto,name="editar"),
+    path('dashboard/producto/eliminar/<uuid:id>',eliminarProducto,name="eliminar")
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
