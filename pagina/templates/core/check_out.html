@@ -6,7 +6,7 @@
 {% endblock sources %}
 
 {% block content %}
-<div class="container ">
+<div class="container">
   <form method="POST">
     {% csrf_token %}
     <div class="card cart">
@@ -16,7 +16,7 @@
           <div>
             <span>Chanchito-envio</span>
             <p>Ingrese su chanchi-direccion</p>
-            <input type="text" id="chanchito-direccion" name="direccion" required />
+            <input class="direccion" type="text" id="chanchito-direccion" name="direccion" required />
             <select name="Country" id="Country" class="selec">
               <option>Selecciona tu Chanchi-Region</option>
               <option value="1" id="AP">Arica y Parinacota</option>
@@ -40,12 +40,12 @@
           <hr />
           <div>
             <span>Chanchi-tarjeta</span>
-            <input required type="text" pattern="{13,16}" />
+            <input class="tarjeta" required type="text" pattern="{13,16}" />
           </div>
           <hr />
           <hr />
           <div class="payments">
-            <span>Chanchito-pago</span>
+            <span class="chanchito-pago">Chanchito-pago</span>
             <div class="details">
               <span>Chanchito-total:</span>
               <span>${{order.get_total|intcomma}}</span>
