@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
-from .models import Producto, Boleta, Detalle_boleta, Region, Envio 
+from .models import Producto, Boleta, Detalle_boleta, Region, Envio, Usuario
 from django.views.decorators.http import require_POST
 import json
-from django.http import JsonResponse
+from django.http import JsonResponse , HttpResponse
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
 from django.contrib.auth import authenticate, login as auth_login, logout
@@ -49,7 +49,6 @@ def login(request):
         form = LoginForm(request.POST)
 
         if form.is_valid():
-            print(form.cleaned_data)
             email = form.cleaned_data.get('email')
             password = form.cleaned_data.get('password')
             user = authenticate(email=email, password=password)
@@ -65,6 +64,9 @@ def login(request):
             else:
                 messages.error(request, 'Chanchi-Email o Chanchi-Contraseña incorrectas')
                 return redirect('login')
+        else: 
+            messages.error(request, 'Chanchi-Email o Chanchi-Contraseña incorrectas')
+            return redirect('login')  
     return render(request,"core/login.html")
 
 @login_required
@@ -206,9 +208,10 @@ def pedidos_admin (request):
 @login_required
 @permission_required("pagina.view_user",raise_exception=True)
 def detalle_boleta(request,id):
+    estados = Envio.envio
     boleta = Boleta.objects.get(id=id)
     productos = Detalle_boleta.objects.filter(boleta=boleta)
-    context = {'boleta':boleta,'productos':productos}
+    context = {'boleta':boleta,'productos':productos,'estados':estados}
     return render(request,"core/detalle_boleta.html", context)
 
 @login_required
@@ -262,6 +265,83 @@ def eliminarProducto(request,id):
     producto.delete()
     messages.success(request,"Chanchi-elimidado con éxito :(")
     return redirect('dashboard')
+
+@login_required
+def misProductos(request):
+    boleta = Boleta.objects.filter(cliente=request.user,completada=True).all()
+    context = {'boletas': boleta}
+    return render(request,"core/misProductos.html",context)
+
+@login_required
+def productos_usuario(request,id):
+    boleta = Boleta.objects.get(id=id)
+    productos = Detalle_boleta.objects.filter(boleta=boleta)
+    if not boleta.cliente == request.user or not request.user.is_staff:
+        return redirect('index')
+    context = {'boleta':boleta,'productos':productos}
+    return render(request,"core/productos_usuario.html", context)
+    
+@require_POST
+def editarEnvio(request):
+    data = json.loads(request.body)
+    id = data['id']
+    status = data['status']
+    boleta = Boleta.objects.get(id=id)
+    envio = Envio.objects.get(boleta=boleta)
+    if envio is None:
+        return HttpResponse({'message': 'El Chanchi-envio no existe'}, status=404)
+    
+    envio.estado = status
+    envio.save()
+    return HttpResponse({'message': 'Chanchi-envio actualizado correctamente'}, status=200)
+
+@login_required
+@permission_required("pagina.view_user",raise_exception=True)
+def usuarios(request):
+    usuario = Usuario.objects.all()
+    context = {'usuarios': usuario}
+
+
+    return render(request,"core/usuarios.html",context)
+
+@login_required
+@permission_required("pagina.view_user",raise_exception=True)
+def editarUsuario(request,id):
+    usuario = Usuario.objects.get(rut=id)
+    if request.method == 'POST':
+        email = request.POST.get("usuarioEmail")
+        nombre = request.POST.get("usuarioNombre")
+        if Usuario.objects.filter(email = email).exclude(rut=id).exists():
+            messages.error(request,"No pueden existir dos chanchi-usuarios iguales en el universo")
+            return redirect ('dashboard')
+        if email == "":
+            messages.error(request,"Pone un chanchi-correo po!")
+            return redirect ('dashboard')
+        if nombre == "":
+            messages.error(request,"El chanchi-nombre no puede ser vacio")
+            return redirect('dashboard')
+        
+        usuario.email = email
+        usuario.nombre = nombre
+        usuario.save()    
+        messages.success(request,"Chanchi-editado con éxito!")
+        return redirect('dashboard')
+    context = {'usuario': usuario}
+    return render(request,"core/editarUsuario.html", context)
+
+@login_required
+@permission_required("pagina.view_user",raise_exception=True)
+def eliminarUsuario(request,id):
+    usuario = Usuario.objects.get(rut=id)
+    if not Usuario.objects.filter(rut=id).exists():
+        messages.error(request,"El chanchi-usuario no existe")
+        return redirect('dashboard')
+    usuario.delete()
+    messages.success(request,"Chanchi-elimidado con éxito :(")
+    return redirect('dashboard')
+
+
+
 
 
 

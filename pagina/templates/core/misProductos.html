@@ -1,13 +1,15 @@
-{% extends "core/template.html" %}
-{% load static %} 
+{% extends "core/template.html" %} {% load static %}
 {% block content %}
-<h2 class="mt-5 titulo-blanco">Lista de Pedidos</h2>
+<div class="d-flex flex-row justify-content-center flex-wrap contenedor">
+    <h2 class="mt-5 titulo-blanco text-white">Mis chanchi-pedidos</h2>
 <table class="table tabla-pedidos">
     <thead>
         <tr>
             <th class="subtitulo-blanco">Chanchi-Número de Chanchi-Pedido</th>
             <th class="subtitulo-blanco">Chanchi-Total</th>
             <th class="subtitulo-blanco">Chanchi-Estado</th>
+            <th class="subtitulo-blanco">Chanchi-ver</th>
+            
         </tr>
     </thead>
     <tbody>
@@ -16,8 +18,10 @@
             <td>{{boleta.id}}</td>
             <td>{{boleta.get_total}}</td>
             <td>{{boleta.envio.get_estado_display}}</td>
+            <td><a href="{%url 'productos_usuario' boleta.id%}">Chanchi</a></td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
-{% endblock content %}
+</div>
+{% endblock  %}

@@ -1,0 +1,34 @@
+{% extends "core/template_admin.html" %} {% load static %} {% load humanize %}
+{% block content %}
+<div class="container mt-5 content" id="admin-contenido">
+  <h2 class="text-white" class="mb-4">Administración de Productos</h2>
+
+  <h4 class="text-white">Chanchi-Editar Usuario</h4>
+  <form id="addProductForm" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="productPrice" class="text-white">Chanchi-email: </label>
+      <input
+        name="usuarioEmail"
+        type="text"
+        class="form-control"
+        id="usuarioEmail"
+        value="{{usuario.email}}"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label for="productStock" class="text-white">Chanchi-nombre:</label>
+      <input
+        name="usuarioNombre"
+        type="text"
+        class="form-control"
+        id="usuarioNombre"
+        value="{{usuario.nombre}}"
+        required
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Chanchi editar-usuario</button>
+  </form>
+</div>
+{% endblock content %}
