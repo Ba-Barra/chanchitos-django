@@ -109,13 +109,13 @@ class Region (models.Model):
     nombre = models.CharField(max_length=100)
 
 class Envio (models.Model):
-    envio = {
-        'E' : 'Enviado',
-        'C' : 'Camino',
-        'R' : 'Recibido',
-        'N' : 'No Recibido',
-        'P' : 'Preparacion'
-    }
+    envio = [
+        ('E', 'Enviado'),
+        ('C', 'Camino'),
+        ('R', 'Recibido'),
+        ('N', 'No Recibido'),
+        ('P', 'Preparacion')
+    ]
     boleta = models.OneToOneField(Boleta,on_delete=models.CASCADE)
     region = models.ForeignKey(Region,on_delete=models.SET_NULL,blank=True, null=True)
     direccion = models.CharField(max_length=250)

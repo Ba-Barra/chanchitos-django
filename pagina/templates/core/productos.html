@@ -12,9 +12,7 @@
         {{producto.descripcion}}
       </p>
       <p>${{producto.valor | intcomma}}</p>
-      <a href="./checkOut.html" class="btn btn-primary boton-compra"
-        >Comprar</a
-      >
+      <button type="button" class="btn btn-primary boton-carrito update-cart" data-product="{{producto.id}}" data-buy="true" data-action='add'>Chanchi-comprar</button>
 <button type="button" class="btn btn-primary boton-carrito update-cart" data-product="{{producto.id}}" data-action='add'>Agregar al chanchi-carrito</button>
     </div>
   </div>

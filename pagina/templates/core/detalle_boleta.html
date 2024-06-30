@@ -1,6 +1,30 @@
 
 {% extends "core/template_admin.html" %} {% load static %} 
 {% load humanize %}
+{% block sources  %}
+<script>
+  const id = "{{boleta.id}}";
+  function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          const cookies = document.cookie.split(";");
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+              cookieValue = decodeURIComponent(
+                cookie.substring(name.length + 1)
+              );
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+      const csrftoken = getCookie("csrftoken");
+</script>
+<script src="{%static 'core/js/envio.js'%}""></script>
+{% endblock sources  %}
 {% block content %}
 <div class="container mt-5 content row" id="admin-contenido">
   <div class="col-md-7 col-sm-12 d-flex flex-column">
@@ -23,7 +47,14 @@
         <p>Chanchi-fecha: {{boleta.fechaVenta}}</p>
         <p>Chanchi-Cliente: {{boleta.cliente.nombre}}</p>
         <p>Chanchi-total: ${{boleta.get_envio|intcomma}}</p>
-        <p>Chanchi-estado: {{boleta.envio.get_estado_display}}</p>
+        <p>Chanchi-estado: 
+          <select name="delivery" id="delivery">{% for value, label in estados %} <option 
+            {% if boleta.envio.estado == value %}selected{% endif %}
+            value='{{value}}'>{{label}}</option>
+            {% endfor %}
+          </select>
+      </p>
+      <p class="text-danger" id="statusError" style="display: none;">Ocurrio un error al actualizar el pedido</p>
         <p>Chanchi-direccion : {{boleta.envio.get_direccion}}</p>
     </div>
   </div>

@@ -1,0 +1,27 @@
+{% extends "core/template.html" %}
+{% load static %} 
+{% block content %}
+<h2 class="mt-5 titulo-blanco">Lista de chanchi-Usuario</h2>
+<table class="table tabla-pedidos">
+    <thead>
+        <tr>
+            <th class="subtitulo-blanco">Chanchi-email</th>
+            <th class="subtitulo-blanco">Chanchi-rut</th>
+            <th class="subtitulo-blanco">Chanchi-nombre</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
+    </thead>
+    <tbody> 
+        {% for usuario in usuarios %}
+        <tr>
+            <td>{{usuario.email}}</td>
+            <td>{{usuario.rut}}</td>
+            <td>{{usuario.nombre}}</td>
+            <td><a class="btn btn-primary" href="{%url 'editarUsuario' usuario.rut %}">Chanchi-editar</a></td>
+            <td><a class="btn btn-primary" href="{%url 'eliminarUsuario' usuario.rut %}">Chanchi-eliminar</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
