@@ -222,7 +222,7 @@ def editarProducto(request,id):
     if request.method == 'POST':
         tipo = request.POST.get("Tipo")
         nombre = request.POST.get("productonombre")
-        precio = request.POST.get("precioProducto")
+        precio = request.POST.get("valorProducto")
         descripcion = request.POST.get("descripcionProducto")
         stock = request.POST.get("StockProducto")
         imagen = request.FILES.get("imagenProducto")
@@ -243,7 +243,7 @@ def editarProducto(request,id):
 
         producto.tipo = tipo
         producto.nombre = nombre
-        producto.precio = precio
+        producto.valor=precio
         producto.descripcion = descripcion
         producto.stock = stock
         if imagen is not None:
