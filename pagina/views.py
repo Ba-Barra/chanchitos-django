@@ -276,7 +276,7 @@ def misProductos(request):
 def productos_usuario(request,id):
     boleta = Boleta.objects.get(id=id)
     productos = Detalle_boleta.objects.filter(boleta=boleta)
-    if not boleta.cliente == request.user or not request.user.is_staff:
+    if not boleta.cliente == request.user:
         return redirect('index')
     context = {'boleta':boleta,'productos':productos}
     return render(request,"core/productos_usuario.html", context)
